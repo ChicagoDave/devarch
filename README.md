@@ -25,7 +25,8 @@ Traditional development practices don't fully address these issues. This repo pr
 
 | Guide | Description |
 |-------|-------------|
-| [Claude Code Workflow Guide](docs/claude-code-workflow-guide.md) | Comprehensive guide to productive AI-assisted development sessions |
+| [Claude Code Workflow Guide](docs/claude-code-workflow-guide.md) | Productive AI-assisted development sessions, context management, documentation patterns |
+| [AWS Serverless Backend Guide](docs/aws-serverless-backend-guide.md) | Let Claude build your API: Lambda, API Gateway, DynamoDB, custom domains, hardening |
 
 ### Key Topics Covered
 
