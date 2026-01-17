@@ -86,6 +86,140 @@ Get-ChildItem .\scripts\*.ps1
 - Visual Studio 2026 with GitHub Copilot extensions
 - Claude Opus 4.5 model (select in Copilot settings)
 
+## Applying This Workflow to Your Own Projects
+
+Once you've reviewed this repository, you can apply the GitHub Copilot workflow to any of your projects:
+
+### For a New Project
+
+```powershell
+# 1. Create your project repository
+mkdir my-project && cd my-project
+git init
+
+# 2. Copy the workflow files from devarch
+# Option A: Manual copy
+# Copy these to your project:
+#   - scripts/ (all PowerShell scripts)
+#   - .github/copilot-instructions.md
+#   - .copilotignore
+#   - docs/context/.session-template.md
+
+# Option B: Using git (recommended)
+git remote add devarch https://github.com/SangeetAgarwal/devarch.git
+git fetch devarch
+git checkout devarch/copilot/adapt-cli-workflow-for-copilot -- scripts/ .github/copilot-instructions.md .copilotignore docs/context/.session-template.md
+git remote remove devarch
+
+# 3. Customize for your project
+# Edit .github/copilot-instructions.md:
+#   - Update "Overview" section with your project description
+#   - Update "Current Work" section
+#   - Update "Project Structure" to match your codebase
+# Edit .copilotignore:
+#   - Add your project-specific build outputs
+#   - Add framework-specific folders to ignore
+
+# 4. Create required directories
+mkdir -p docs/context docs/architecture/adrs docs/work
+
+# 5. Start your first feature
+.\scripts\New-Feature.ps1 -FeatureName "initial-setup"
+# This creates the branch, work folder, and initial documentation
+
+# 6. Begin working with the workflow
+# The generated prompt is already in your clipboard - paste into Copilot Chat
+```
+
+### For an Existing Project
+
+```powershell
+# 1. Navigate to your existing repository
+cd path/to/your-existing-repo
+
+# 2. Copy the workflow files (same as above - Option A or B)
+git remote add devarch https://github.com/SangeetAgarwal/devarch.git
+git fetch devarch
+git checkout devarch/copilot/adapt-cli-workflow-for-copilot -- scripts/ .github/copilot-instructions.md .copilotignore docs/context/.session-template.md
+git remote remove devarch
+
+# 3. Customize for your existing project
+# Edit .github/copilot-instructions.md with your:
+#   - Project overview and architecture
+#   - Current conventions and patterns
+#   - Existing folder structure
+#   - Build/test commands
+# Edit .copilotignore for your build artifacts
+
+# 4. Create documentation structure (if not exists)
+mkdir -p docs/context docs/architecture/adrs docs/work
+
+# 5. Start tracking your current work
+.\scripts\New-Session.ps1
+# Paste the generated prompt into Copilot Chat to begin
+```
+
+### Key Files to Customize
+
+After copying the workflow files, customize these for your specific project:
+
+1. **`.github/copilot-instructions.md`** (IMPORTANT)
+   - Replace the devarch-specific content with your project details
+   - Update the "Overview", "Current Work", and "Project Structure" sections
+   - Add your project's specific conventions, patterns, and architecture decisions
+   - Update build/test commands
+
+2. **`.copilotignore`**
+   - Add your project-specific build directories (e.g., `target/` for Java, `build/` for Gradle)
+   - Add framework-specific folders (e.g., `venv/` for Python, `vendor/` for PHP)
+   - Keep the common entries already present
+
+3. **`docs/context/.session-template.md`** (optional)
+   - Modify the template structure if you need different sections
+   - Most projects can use it as-is
+
+### What Gets Created
+
+The workflow creates this structure in your project:
+
+```
+your-project/
+├── .github/
+│   └── copilot-instructions.md          # Project instructions for Copilot
+├── .copilotignore                        # Context optimization
+├── scripts/                              # 8 PowerShell automation scripts
+│   ├── New-Session.ps1
+│   ├── Resume-Session.ps1
+│   ├── End-Session.ps1
+│   ├── New-WorkSummary.ps1
+│   ├── New-Feature.ps1
+│   ├── New-ADR.ps1
+│   ├── Context-Check.ps1
+│   ├── Update-ImplementationPlan.ps1
+│   └── README.md
+├── docs/
+│   ├── context/                          # Session summaries
+│   │   ├── .session-template.md
+│   │   └── session-*.md
+│   ├── architecture/
+│   │   └── adrs/                         # Architecture decisions
+│   └── work/
+│       └── {branch-name}/                # Work folders (match branch names)
+│           ├── README.md
+│           ├── implementation-plan.md
+│           └── context/                  # Work summaries
+└── [your existing code]
+```
+
+The scripts work in any repository - they just manage documentation and generate Copilot prompts. Your actual code stays in your existing structure.
+
+### Next Steps After Setup
+
+1. Read the [Copilot Workflow Guide](docs/copilot-workflow-guide.md) for detailed usage
+2. Run `.\scripts\New-Session.ps1` to start your first session
+3. Use `.\scripts\Context-Check.ps1` regularly to monitor context
+4. Generate work summaries after significant milestones with `.\scripts\New-WorkSummary.ps1`
+
 ## Philosophy
 
 1. **Documentation is memory** — What you write down survives; what stays in AI context doesn't

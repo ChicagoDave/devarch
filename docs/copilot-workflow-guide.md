@@ -99,6 +99,52 @@ Approximate token usage (rough estimates):
 
 ---
 
+## Getting Started: Applying to Your Project
+
+This workflow can be applied to any project. Here's how to set it up:
+
+### For a New Project
+
+```powershell
+# 1. Create your project
+mkdir my-project && cd my-project
+git init
+
+# 2. Copy workflow files from devarch
+git remote add devarch https://github.com/SangeetAgarwal/devarch.git
+git fetch devarch
+git checkout devarch/copilot/adapt-cli-workflow-for-copilot -- scripts/ .github/copilot-instructions.md .copilotignore docs/context/.session-template.md
+git remote remove devarch
+
+# 3. Customize .github/copilot-instructions.md for your project
+# Update: Overview, Current Work, Project Structure sections
+
+# 4. Create documentation structure
+mkdir -p docs/context docs/architecture/adrs docs/work
+
+# 5. Start your first feature
+.\scripts\New-Feature.ps1 -FeatureName "initial-setup"
+```
+
+### For an Existing Project
+
+```powershell
+cd your-existing-repo
+
+# 1. Copy workflow files (same command as above)
+# 2. Customize copilot-instructions.md for your codebase
+# 3. Create docs/ structure if needed
+# 4. Start using: .\scripts\New-Session.ps1
+```
+
+**Key customizations needed:**
+- `.github/copilot-instructions.md` - Update with your project's architecture, conventions, and structure
+- `.copilotignore` - Add your project-specific build outputs and large files
+
+The scripts are portable and work in any repository - they just manage documentation in `docs/` and generate Copilot prompts.
+
+---
+
 ## Folder Structure
 
 Organize your project with these directories:
