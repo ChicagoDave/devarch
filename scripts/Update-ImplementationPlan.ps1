@@ -233,7 +233,7 @@ $summaryTable
 
     # Show warnings
     if ($totalBlocked -gt 0) {
-        Write-Warning2 "$totalBlocked tasks are blocked - review and address blockers"
+        Write-Error2 "$totalBlocked tasks are blocked - review and address blockers"
     }
 
     if ($totalInProgress -gt 3) {
